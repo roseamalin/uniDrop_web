@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f7ff;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #1e3a8a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: center;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: white;
+    }
+    .btn-remove {
+      background-color: #ef4444;
+    }
+    .btn-remove:hover {
+      background-color: #f87171;
+    }
+    .total {
+      font-weight: bold;
+      text-align: right;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+    .checkout-container {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .btn-checkout {
+      background-color: #22c55e;
+      font-size: 16px;
+    }
+    .btn-checkout:hover {
+      background-color: #4ade80;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Cart</h1>
+  <table id="cart-table">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Price (RM)</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <p class="total" id="total"></p>
+
+  <div class="checkout-container">
+    <button class="btn-checkout" onclick="checkout()">Proceed to Checkout</button>
+  </div>
+
+  <script>
+    function renderCart() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let tbody = document.querySelector("#cart-table tbody");
+      tbody.innerHTML = "";
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        let subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        let row = `<tr>
+          <td>${item.name}</td>
+          <td>${item.price.toFixed(2)}</td>
+          <td>${item.quantity}</td>
+          <td>${subtotal.toFixed(2)}</td>
+          <td><button class="btn-remove" onclick="removeItem(${index})">Remove</button></td>
+        </tr>`;
+        tbody.innerHTML += row;
+      });
+
+      document.getElementById("total").innerText = "Total: RM " + total.toFixed(2);
+    }
+
+    function removeItem(index) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function checkout() {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (cart.length === 0) {
+    alert("Your cart is empty.");
+    return;
+  }
+
+  if (confirm("Proceed to checkout?")) {
+   
+    const orderId = 'ORD' + Math.floor(Math.random() * 1000000);
+
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    sessionStorage.setItem('orderId', orderId);
+
+    localStorage.removeItem('cart');
+
+    window.location.href = "orderSummary.html";
+  }
+}
+
+
+    renderCart();
+  </script>
+
+</body>
+</html>
+
+
+
