@@ -1,0 +1,163 @@
+<%-- 
+    Document   : orderManagement
+    Created on : Jul 5, 2025, 6:37:23 PM
+    Author     : User
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin Order Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f7ff;
+            padding: 20px;
+        }
+        h1 {
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        th, td {
+            padding: 14px 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #1e3a8a;
+            color: white;
+            font-weight: 600;
+        }
+        form {
+            margin: 0;
+            display: inline-block;
+        }
+        select, input[type="text"] {
+            font-size: 14px;
+            padding: 6px 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            min-width: 120px;
+        }
+        input[type="text"] {
+            width: 150px;
+        }
+        button {
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-left: 6px;
+            vertical-align: middle;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+        button.update-btn {
+            background-color: #3b82f6;
+        }
+        button.update-btn:hover {
+            background-color: #60a5fa;
+        }
+        button.delete-btn {
+            background-color: #ef4444;
+            margin-left: 12px;
+        }
+        button.delete-btn:hover {
+            background-color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Order Management</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Admin ID</th>
+            <th>Total Price (RM)</th>
+            <th>Order Date</th>
+            <th>Order Status</th>
+            <th>Tracking Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>5001</td>
+            <td>102</td>
+            <td>10</td>
+            <td>45.00</td>
+            <td>2025-05-22</td>
+            <td>
+                <form action="update_order_status.jsp" method="POST">
+                    <input type="hidden" name="orderID" value="5001" />
+                    <select name="orderStatus" required>
+                        <option value="Pending" selected>Pending</option>
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+            </td>
+            <td>
+                <input type="text" name="trackingNum" placeholder="Tracking #" value="TRACK123456" />
+            </td>
+            <td>
+                <button type="submit" class="update-btn">Update</button>
+                </form>
+                <form action="delete_order.jsp" method="POST" onsubmit="return confirm('Are you sure you want to delete this order?');" style="display:inline;">
+                    <input type="hidden" name="orderID" value="5001" />
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>5002</td>
+            <td>105</td>
+            <td>11</td>
+            <td>85.00</td>
+            <td>2025-05-21</td>
+            <td>
+                <form action="update_order_status.jsp" method="POST">
+                    <input type="hidden" name="orderID" value="5002" />
+                    <select name="orderStatus" required>
+                        <option value="Pending">Pending</option>
+                        <option value="Processing" selected>Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+            </td>
+            <td>
+                <input type="text" name="trackingNum" placeholder="Tracking #" value="TRACK654321" />
+            </td>
+            <td>
+                <button type="submit" class="update-btn">Update</button>
+                </form>
+                <form action="delete_order.jsp" method="POST" onsubmit="return confirm('Are you sure you want to delete this order?');" style="display:inline;">
+                    <input type="hidden" name="orderID" value="5002" />
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
