@@ -1,3 +1,4 @@
+//ADMIN
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -66,7 +67,7 @@ public class AdminLogoutServlet extends HttpServlet {
         {
             session.invalidate();
             request.setAttribute("errMessage", "You have logged out successfully");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin_login.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
             requestDispatcher.forward(request, response);
             System.out.println("Logged out");
         }
@@ -120,7 +121,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author najlaa
  */
-public class CustomerLogoutServlet extends HttpServlet {
+public class CustLogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -168,7 +169,7 @@ public class CustomerLogoutServlet extends HttpServlet {
         {
             session.invalidate();
             request.setAttribute("errMessage", "You have logged out successfully");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/customer_login.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
             requestDispatcher.forward(request, response);
             System.out.println("Logged out");
         }
@@ -200,4 +201,3 @@ public class CustomerLogoutServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-
