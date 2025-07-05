@@ -123,35 +123,41 @@
 
     <h2>Available Merchandise</h2>
     <div class="merch-section">
-        <div class="card">
-            <h3>Lanyard</h3>
-            <p>High quality printed lanyard with clip.</p>
-            <p>Price: RM5.00 <br><strong>Membership Price: RM4.50</strong></p>
-            <button onclick="addToCart('Lanyard', 5.00)">Add to Cart</button>
-        </div>
-        <div class="card">
-            <h3>T-Shirt</h3>
-            <p>Cotton shirt with event logo.</p>
-            <p>Price: RM20.00 <br><strong>Membership Price: RM18.00</strong></p>
-            <button onclick="addToCart('T-Shirt', 20.00)">Add to Cart</button>
-        </div>
-        <div class="card">
-            <h3>Badge</h3>
-            <p>Custom enamel badge.</p>
-            <p>Price: RM3.00 <br><strong>Membership Price: RM2.50</strong></p>
-            <button onclick="addToCart('Badge', 3.00)">Add to Cart</button>
-        </div>
+    <div class="card">
+        <img src="images/lanyard.png" alt="Lanyard" style="width:100%; border-radius:6px;">
+        <h3>Lanyard</h3>
+        <p>High quality printed lanyard with clip.</p>
+        <p>Price: RM5.00 <br><strong>Membership Price: RM4.50</strong></p>
+        <button onclick="addToCart('Lanyard', 5.00)">Add to Cart</button>
     </div>
+    <div class="card">
+        <img src="images/tshirt.png" alt="T-Shirt" style="width:100%; border-radius:6px;">
+        <h3>T-Shirt</h3>
+        <p>Cotton shirt with event logo.</p>
+        <p>Price: RM20.00 <br><strong>Membership Price: RM18.00</strong></p>
+        <button onclick="addToCart('T-Shirt', 20.00)">Add to Cart</button>
+    </div>
+    <div class="card">
+        <img src="images/badge.png" alt="Badge" style="width:100%; border-radius:6px;">
+        <h3>Badge</h3>
+        <p>Custom enamel badge.</p>
+        <p>Price: RM3.00 <br><strong>Membership Price: RM2.50</strong></p>
+        <button onclick="addToCart('Badge', 3.00)">Add to Cart</button>
+    </div>
+</div>
+
 
     <h2>Merch Packages</h2>
     <div class="package-section">
         <div class="card">
+             <img src="images/packageA.png" alt="PackageA" style="width:100%; border-radius:6px;">
             <h3>Package A</h3>
             <p>Includes: Lanyard + T-Shirt + Badge</p>
             <p>Price: RM26.00 <br><strong>Membership Price: RM23.00</strong></p>
             <button onclick="addToCart('Package A', 26.00)">Add to Cart</button>
         </div>
         <div class="card">
+             <img src="images/packageB.png" alt="PackageB" style="width:100%; border-radius:6px;">
             <h3>Package B</h3>
             <p>Includes: 2 T-Shirts + Lanyard</p>
             <p>Price: RM40.00 <br><strong>Membership Price: RM36.00</strong></p>
