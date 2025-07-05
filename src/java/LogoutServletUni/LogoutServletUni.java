@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author najlaa
  */
-public class LogoutServletUni extends HttpServlet {
+public class AdminLogoutServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -66,7 +66,7 @@ public class LogoutServletUni extends HttpServlet {
         {
             session.invalidate();
             request.setAttribute("errMessage", "You have logged out successfully");
-            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/customer_login.jsp");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin_login.jsp");
             requestDispatcher.forward(request, response);
             System.out.println("Logged out");
         }
