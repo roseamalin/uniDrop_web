@@ -5,6 +5,21 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*, java.sql.*" %>
+<%@ page import="util.DBConnection" %>
+<%@ page session="true" %>
+
+<%
+    HttpSession sessionObj = request.getSession(false);
+    if (sessionObj == null || sessionObj.getAttribute("username") == null) {
+        response.sendRedirect("customer_login.jsp");
+        return;
+    }
+
+    String username = (String) sessionObj.getAttribute("username");
+    int orderID = (sessionObj.getAttribute("orderID") != null) ? (int) sessionObj.getAttribute("orderID") : -1;
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,6 +89,10 @@
             text-align: center;
         }
 
+        th {
+            background-color: #f1f5f9;
+        }
+
         .total {
             text-align: right;
             font-size: 18px;
@@ -92,10 +111,12 @@
 </header>
 
 <div class="summary">
-    Order ID: <span id="order-id">Loading...</span>
+    Thank you, <strong><%= username %></strong>!<br>
+    Your order has been placed successfully.<br>
+    Order ID: <span><%= orderID %></span>
 </div>
 
-<table id="summary-table">
+<table>
     <thead>
         <tr>
             <th>Item</th>
@@ -104,39 +125,41 @@
             <th>Subtotal</th>
         </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+    <%
+        double total = 0.0;
+        try {
+            Connection conn = DBConnection.createConnection();
+            PreparedStatement ps = conn.prepareStatement(
+                "SELECT m.merchName, m.merchPrice, om.merchQty " +
+                "FROM ORDER_MERCH om JOIN MERCHANDISE m ON om.merchID = m.merchID " +
+                "WHERE om.orderID = ?");
+            ps.setInt(1, orderID);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("merchName");
+                double price = rs.getDouble("merchPrice");
+                int qty = rs.getInt("merchQty");
+                double subtotal = price * qty;
+                total += subtotal;
+    %>
+        <tr>
+            <td><%= name %></td>
+            <td><%= String.format("%.2f", price) %></td>
+            <td><%= qty %></td>
+            <td><%= String.format("%.2f", subtotal) %></td>
+        </tr>
+    <%
+            }
+        } catch (Exception e) {
+            out.println("Error loading order: " + e.getMessage());
+        }
+    %>
+    </tbody>
 </table>
 
-<p class="total" id="order-total">Subtotal: RM 0.00</p>
+<p class="total">Total: RM <%= String.format("%.2f", total) %></p>
 
-<script>
-    const cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-    const orderId = sessionStorage.getItem('orderId') || "N/A";
-
-    function renderSummary() {
-        document.getElementById("order-id").textContent = orderId;
-
-        let tbody = document.querySelector("#summary-table tbody");
-        tbody.innerHTML = "";
-        let total = 0;
-
-        cart.forEach(item => {
-            let subtotal = item.price * item.quantity;
-            total += subtotal;
-
-            tbody.innerHTML += `
-                <tr>
-                    <td>${item.name}</td>
-                    <td>${item.price.toFixed(2)}</td>
-                    <td>${item.quantity}</td>
-                    <td>${subtotal.toFixed(2)}</td>
-                </tr>`;
-        });
-
-        document.getElementById("order-total").textContent = "Total: RM " + total.toFixed(2);
-    }
-
-    renderSummary();
-</script>
 </body>
 </html>
